@@ -229,6 +229,40 @@ body {
     color: var(--secondary-color);
 }
 
+/* Menu Category Tabs */
+.menu-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: 2px solid var(--border-color);
+    background: white;
+    color: var(--text-dark);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.tab-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #E74C3C 100%);
+    color: white;
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+/* Menu Items Grid */
 .menu-items {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -249,6 +283,10 @@ body {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     border-color: var(--accent-color);
+}
+
+.menu-card.hidden {
+    display: none;
 }
 
 .menu-icon {
@@ -437,6 +475,15 @@ body {
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
@@ -465,5 +512,14 @@ body {
     .cta-buttons .btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .menu-tabs {
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
     }
 }
