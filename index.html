@@ -29,7 +29,7 @@
             <h2>Authentic Smoked Fish Lumpia</h2>
             <p>Experience the delicious taste of traditional Filipino cuisine</p>
             <p class="price-highlight">₱7 per piece • 6 pieces per order</p>
-            <a href="#contact" class="btn btn-primary">Order Now</a>
+            <a href="#menu" class="btn btn-primary">Order Now</a>
         </div>
     </section>
 
@@ -101,7 +101,7 @@
                         <span class="quantity">6 pieces</span>
                     </div>
                     <p class="note">Standard order</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Smoked Fish Lumpia (6pc)', '₱42', '6 pieces')">Add to Cart</button>
                 </div>
 
                 <div class="menu-card" data-category="regular">
@@ -113,7 +113,7 @@
                         <span class="quantity">12 pieces</span>
                     </div>
                     <p class="note">Double the goodness</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Smoked Fish Lumpia Deluxe (12pc)', '₱84', '12 pieces')">Add to Cart</button>
                 </div>
 
                 <!-- Gift Boxes -->
@@ -126,7 +126,7 @@
                         <span class="quantity">12 pieces</span>
                     </div>
                     <p class="note">Beautiful gift packaging</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Gift Box - Standard (12pc)', '₱84', '12 pieces')">Add to Cart</button>
                 </div>
 
                 <div class="menu-card" data-category="gift">
@@ -138,7 +138,7 @@
                         <span class="quantity">18 pieces</span>
                     </div>
                     <p class="note">Premium presentation</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Gift Box - Premium (18pc)', '₱120', '18 pieces')">Add to Cart</button>
                 </div>
 
                 <div class="menu-card" data-category="gift">
@@ -150,7 +150,7 @@
                         <span class="quantity">24 pieces</span>
                     </div>
                     <p class="note">Personalized touch</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Gift Box - Deluxe (24pc)', '₱168', '24 pieces')">Add to Cart</button>
                 </div>
 
                 <!-- Family Bundles -->
@@ -163,7 +163,7 @@
                         <span class="quantity">24 pieces</span>
                     </div>
                     <p class="note">Family favorite</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Family Bundle - Small (24pc)', '₱168', '24 pieces')">Add to Cart</button>
                 </div>
 
                 <div class="menu-card" data-category="bundle">
@@ -175,7 +175,7 @@
                         <span class="quantity">36 pieces</span>
                     </div>
                     <p class="note">Great value</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Family Bundle - Large (36pc)', '₱252', '36 pieces')">Add to Cart</button>
                 </div>
 
                 <div class="menu-card" data-category="bundle">
@@ -187,7 +187,7 @@
                         <span class="quantity">48 pieces</span>
                     </div>
                     <p class="note">Best for bulk orders</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Family Bundle - Mega (48pc)', '₱336', '48 pieces')">Add to Cart</button>
                 </div>
 
                 <!-- Custom Orders -->
@@ -200,7 +200,7 @@
                         <span class="quantity">per piece</span>
                     </div>
                     <p class="note">Contact for details</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Bulk Corporate Order', 'Custom Price', 'Custom Quantity')">Add to Cart</button>
                 </div>
 
                 <div class="menu-card" data-category="custom">
@@ -212,7 +212,7 @@
                         <span class="quantity">per piece</span>
                     </div>
                     <p class="note">Special rates available</p>
-                    <button class="btn btn-secondary">Add to Cart</button>
+                    <button class="btn btn-secondary" onclick="addToCart('Wholesale Order', 'Custom Price', 'Custom Quantity')">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -265,6 +265,14 @@
                             <i class="fas fa-mobile-alt"></i>
                             <span>GCash: 09853307344</span>
                         </div>
+                        <div class="method">
+                            <i class="fas fa-wallet"></i>
+                            <span>Maya Payment</span>
+                        </div>
+                        <div class="method">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Debit/Credit Card</span>
+                        </div>
                     </div>
 
                     <div class="shipping-info">
@@ -278,18 +286,74 @@
 
             <div class="order-cta">
                 <h3>Ready to Order?</h3>
-                <p>Contact us via email or GCash to place your order today!</p>
-                <div class="cta-buttons">
-                    <a href="mailto:anzanojoanna90@gmail.com" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i> Send Email
-                    </a>
-                    <a href="tel:09853307344" class="btn btn-primary">
-                        <i class="fas fa-phone"></i> Call Now
-                    </a>
-                </div>
+                <p>Select items from the menu and checkout securely</p>
+                <button class="btn btn-checkout" onclick="openCheckout()">
+                    <i class="fas fa-shopping-cart"></i> Checkout Order
+                </button>
             </div>
         </div>
     </section>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeCheckout()">&times;</button>
+            <h2>Checkout Order</h2>
+
+            <form id="checkoutForm" onsubmit="submitOrder(event)">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>📦 Order Summary</h3>
+                    <div id="orderItems"></div>
+                    <div class="order-total">
+                        <span>Total:</span>
+                        <span id="totalPrice">₱0</span>
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="form-group">
+                    <label for="customerName">Full Name *</label>
+                    <input type="text" id="customerName" name="name" placeholder="Enter Your Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerEmail">Email Address *</label>
+                    <input type="email" id="customerEmail" name="email" placeholder="Enter Your Email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerPhone">Phone Number *</label>
+                    <input type="tel" id="customerPhone" name="phone" placeholder="Enter Your Phone Number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliveryAddress">Delivery Address *</label>
+                    <textarea id="deliveryAddress" name="address" placeholder="Enter Your Complete Delivery Address" required></textarea>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="form-group">
+                    <label for="paymentMethod">Select Payment Method *</label>
+                    <select id="paymentMethod" name="paymentMethod" onchange="updatePaymentInfo()" required>
+                        <option value="">Choose Payment Method</option>
+                        <option value="cod">💵 Cash on Delivery (COD)</option>
+                        <option value="gcash">📱 GCash</option>
+                        <option value="maya">💳 Maya</option>
+                        <option value="card">💳 Debit/Credit Card</option>
+                    </select>
+                </div>
+
+                <!-- Payment Information Display -->
+                <div id="paymentInfo" class="payment-info"></div>
+
+                <!-- Submit Buttons -->
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-submit">✓ Confirm Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
