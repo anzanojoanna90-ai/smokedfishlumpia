@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-icon">🎯</div>
                     <h3>Our Mission</h3>
-                    <p>We craft delicious, high-quality smoked fish Lumpiang Shanghai using fresh ingredients and authentic recipes, delivering a convenient and healthier twist on a Filipino favorite while supporting local fisherfolk.</p>
+                    <p>We craft delicious, high-quality smoked fish Lumpiang Shanghai using fresh ingredients and authentic recipes, delivering a convenient and healthier twist on a Filipino favorite.</p>
                 </div>
             </div>
 
@@ -81,40 +81,137 @@
         <div class="container">
             <h2>Our Menu</h2>
             
+            <!-- Menu Category Tabs -->
+            <div class="menu-tabs">
+                <button class="tab-btn active" data-category="all">All Items</button>
+                <button class="tab-btn" data-category="regular">Regular Orders</button>
+                <button class="tab-btn" data-category="gift">Gift Boxes</button>
+                <button class="tab-btn" data-category="bundle">Family Bundles</button>
+                <button class="tab-btn" data-category="custom">Custom Orders</button>
+            </div>
+            
             <div class="menu-items">
-                <div class="menu-card">
-                    <div class="menu-icon">����</div>
+                <!-- Regular Orders -->
+                <div class="menu-card" data-category="regular">
+                    <div class="menu-icon">🍱</div>
                     <h3>Smoked Fish Lumpia</h3>
                     <p class="description">Crispy lumpia wrapper filled with tender smoked fish and premium ingredients</p>
                     <div class="menu-price">
-                        <span class="price">₱7</span>
-                        <span class="quantity">per piece</span>
+                        <span class="price">₱42</span>
+                        <span class="quantity">6 pieces</span>
                     </div>
-                    <p class="note">Standard order: 6 pieces</p>
+                    <p class="note">Standard order</p>
                     <button class="btn btn-secondary">Add to Cart</button>
                 </div>
 
-                <div class="menu-card">
+                <div class="menu-card" data-category="regular">
+                    <div class="menu-icon">🍱</div>
+                    <h3>Smoked Fish Lumpia Deluxe</h3>
+                    <p class="description">Extra large serving with premium smoked fish blend</p>
+                    <div class="menu-price">
+                        <span class="price">₱84</span>
+                        <span class="quantity">12 pieces</span>
+                    </div>
+                    <p class="note">Double the goodness</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <!-- Gift Boxes -->
+                <div class="menu-card" data-category="gift">
                     <div class="menu-icon">🎁</div>
-                    <h3>Gift Box (12 pieces)</h3>
+                    <h3>Gift Box - Standard</h3>
                     <p class="description">Perfect for gifts and special occasions</p>
                     <div class="menu-price">
                         <span class="price">₱84</span>
                         <span class="quantity">12 pieces</span>
                     </div>
-                    <p class="note">Beautiful gift packaging included</p>
+                    <p class="note">Beautiful gift packaging</p>
                     <button class="btn btn-secondary">Add to Cart</button>
                 </div>
 
-                <div class="menu-card">
-                    <div class="menu-icon">🏪</div>
-                    <h3>Family Bundle (24 pieces)</h3>
-                    <p class="description">Great for family gatherings and events</p>
+                <div class="menu-card" data-category="gift">
+                    <div class="menu-icon">🎁</div>
+                    <h3>Gift Box - Premium</h3>
+                    <p class="description">Luxurious gift with deluxe packaging and ribbon</p>
+                    <div class="menu-price">
+                        <span class="price">₱120</span>
+                        <span class="quantity">18 pieces</span>
+                    </div>
+                    <p class="note">Premium presentation</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <div class="menu-card" data-category="gift">
+                    <div class="menu-icon">🎁</div>
+                    <h3>Gift Box - Deluxe</h3>
+                    <p class="description">Exclusive gift set with personalized message card</p>
                     <div class="menu-price">
                         <span class="price">₱168</span>
                         <span class="quantity">24 pieces</span>
                     </div>
-                    <p class="note">Bulk discount available</p>
+                    <p class="note">Personalized touch</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <!-- Family Bundles -->
+                <div class="menu-card" data-category="bundle">
+                    <div class="menu-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Family Bundle - Small</h3>
+                    <p class="description">Great for small family gatherings</p>
+                    <div class="menu-price">
+                        <span class="price">₱168</span>
+                        <span class="quantity">24 pieces</span>
+                    </div>
+                    <p class="note">Family favorite</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <div class="menu-card" data-category="bundle">
+                    <div class="menu-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Family Bundle - Large</h3>
+                    <p class="description">Perfect for parties and celebrations</p>
+                    <div class="menu-price">
+                        <span class="price">₱252</span>
+                        <span class="quantity">36 pieces</span>
+                    </div>
+                    <p class="note">Great value</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <div class="menu-card" data-category="bundle">
+                    <div class="menu-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Family Bundle - Mega</h3>
+                    <p class="description">Ideal for big events and corporate gatherings</p>
+                    <div class="menu-price">
+                        <span class="price">₱336</span>
+                        <span class="quantity">48 pieces</span>
+                    </div>
+                    <p class="note">Best for bulk orders</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <!-- Custom Orders -->
+                <div class="menu-card" data-category="custom">
+                    <div class="menu-icon">📋</div>
+                    <h3>Bulk Corporate Order</h3>
+                    <p class="description">Customized orders for your business or event</p>
+                    <div class="menu-price">
+                        <span class="price">₱5-6</span>
+                        <span class="quantity">per piece</span>
+                    </div>
+                    <p class="note">Contact for details</p>
+                    <button class="btn btn-secondary">Add to Cart</button>
+                </div>
+
+                <div class="menu-card" data-category="custom">
+                    <div class="menu-icon">📋</div>
+                    <h3>Wholesale Order</h3>
+                    <p class="description">For resellers and bulk buyers with special pricing</p>
+                    <div class="menu-price">
+                        <span class="price">₱4-5</span>
+                        <span class="quantity">per piece</span>
+                    </div>
+                    <p class="note">Special rates available</p>
                     <button class="btn btn-secondary">Add to Cart</button>
                 </div>
             </div>
