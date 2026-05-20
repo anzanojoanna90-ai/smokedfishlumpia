@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoked Fish Lumpia - Mobile App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A3525;
+            --accent-color: #E64A19;
+            --bg-light: #F9F6F0;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C1E15;
+            --text-light: #7A6A5E;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            background-color: var(--bg-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .page-view {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page-view.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Auth Screens */
+        .auth-screen {
+            background: linear-gradient(rgba(44, 30, 21, 0.75), rgba(44, 30, 21, 0.85)), 
+                        url('https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=600&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px 24px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .auth-brand {
+            font-family: 'Cinzel', serif;
+            color: #FFFFFF;
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .auth-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(230, 74, 25, 0.3);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        .validation-list {
+            list-style: none;
+            text-align: left;
+            margin: 8px 0 20px 4px;
+        }
+
+        .validation-item {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .validation-item::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 12px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #D32F2F;
+        }
+
+        .auth-links {
+            margin-top: 20px;
+        }
+
+        .auth-link {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .auth-link span {
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* App Layout */
+        .app-header {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 110;
+        }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 30, 21, 0.95);
+            z-index: 105;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .nav-overlay.open {
+            display: flex;
+        }
+
+        .nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-item {
+            margin: 20px 0;
+        }
+
+        .nav-link {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .btn-back {
+            align-self: flex-start;
+            margin: 16px 16px 0 16px;
+            padding: 6px 14px;
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dark);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-back-danger {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            border: none;
+        }
+
+        .main-content {
+            padding: 16px;
+            flex-grow: 1;
+        }
+
+        .hero-banner {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            color: #FFFFFF;
+            border-radius: 0 0 16px 16px;
+            margin-bottom: 24px;
+        }
+
+        .hero-text {
+            font-size: 15px;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.5;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+        }
+
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(74, 53, 37, 0.05);
+            text-align: center;
+            border: 1px solid rgba(74, 53, 37, 0.03);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .card-body {
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        /* Menu Items */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(74, 53, 37, 0.05);
+            border: 1px solid rgba(74, 53, 37, 0.03);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .menu-item:active {
+            transform: scale(0.98);
+        }
+
+        .product-image-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            height: 200px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-title {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .product-description {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .quantity-control {
+            display: inline-flex;
+            align-items: center;
+            background-color: #F0EDE6;
+            border-radius: 30px;
+            padding: 4px;
+            gap: 16px;
+        }
+
+        .quantity-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-value {
+            font-size: 16px;
+            font-weight: 600;
+            min-width: 20px;
+        }
+
+        /* Contact Info */
+        .contact-info-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 16px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0EDE6;
+            font-size: 14px;
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            font-size: 16px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .contact-link {
+            color: #2B6CB0;
+            text-decoration: underline;
+        }
+
+        /* Reviews */
+        .star-rating-container {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin: 12px 0 20px 0;
+        }
+
+        .star-icon {
+            font-size: 28px;
+            color: #E2E8F0;
+            cursor: pointer;
+            transition: color 0.1s;
+        }
+
+        .star-icon.selected {
+            color: #ECC94B;
+        }
+
+        .form-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px 16px;
+            border: 1px solid #CBD5E0;
+            border-radius: 12px;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .form-textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .metric-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(74, 53, 37, 0.05);
+            text-align: center;
+            border: 1px solid rgba(74, 53, 37, 0.03);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .metric-value.primary { color: var(--accent-color); }
+        .metric-value.secondary { color: var(--primary-color); }
+        .metric-value.success { color: #2F855A; }
+        .metric-value.warning { color: #D69E2E; }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .review-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(74, 53, 37, 0.03);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .review-stars {
+            color: #ECC94B;
+            font-size: 14px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .review-text {
+            font-size: 13px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .app-footer {
+            background-color: var(--primary-color);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 16px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            margin-top: auto;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        
+        <!-- Navigation Overlay -->
+        <div class="nav-overlay" id="navOverlay">
+            <ul class="nav-links">
+                <li class="nav-item"><a class="nav-link" onclick="navigateTo('home')">Home</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="navigateTo('menu')">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="navigateTo('about')">About</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="navigateTo('contact')">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="navigateTo('reviews')">Reviews</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="navigateTo('dashboard')">Dashboard</a></li>
+                <li class="nav-item" style="margin-top: 40px;"><a class="nav-link" onclick="navigateTo('login')" style="font-size: 16px; opacity: 0.7;">Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- LOGIN PAGE -->
+        <div id="page-login" class="page-view active">
+            <div class="auth-screen">
+                <div class="auth-card">
+                    <h1 class="auth-brand">SMOKED FISH LUMPIA</h1>
+                    <div class="auth-subtitle">Login</div>
+                    
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Enter Email" value="admin@lumpia.com">
+                    </div>
+                    
+                    <div class="form-group password-container">
+                        <input type="password" class="form-input" id="loginPassword" placeholder="Enter Password" value="Password123">
+                        <span class="password-toggle" onclick="togglePasswordVisibility('loginPassword')">👁️</span>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="navigateTo('home')">Login</button>
+                    
+                    <div class="auth-links">
+                        <a class="auth-link" style="color: var(--accent-color);">Forgot Password?</a><br>
+                        <a class="auth-link" onclick="navigateTo('register')">Don't have an account? <span>Register</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTER PAGE -->
+        <div id="page-register" class="page-view">
+            <div class="auth-screen">
+                <div class="auth-card">
+                    <h1 class="auth-brand">SMOKED FISH LUMPIA</h1>
+                    <div class="auth-subtitle">Register</div>
+                    
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Full Name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Enter Email">
+                    </div>
+                    
+                    <div class="form-group password-container">
+                        <input type="password" class="form-input" id="registerPassword" placeholder="Create Password">
+                        <span class="password-toggle" onclick="togglePasswordVisibility('registerPassword')">👁️</span>
+                    </div>
+                    
+                    <ul class="validation-list">
+                        <li class="validation-item">Minimum 8 characters</li>
+                        <li class="validation-item">1 uppercase letter</li>
+                        <li class="validation-item">1 lowercase letter</li>
+                        <li class="validation-item">1 number</li>
+                    </ul>
+                    
+                    <button class="btn-primary" onclick="navigateTo('home')">Register</button>
+                    
+                    <div class="auth-links">
+                        <a class="auth-link" onclick="navigateTo('login')">Already have an account? <span>Login</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title">SMOKED FISH LUMPIA</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <div class="hero-banner">
+                <p class="hero-text">"Where flaky smoked fish and perfectly seasoned fillings blend together to give you an explosion of rich and amazing flavor in every bite!"</p>
+            </div>
+            
+            <div class="main-content">
+                <div class="content-card">
+                    <h2 class="card-title">🍜 Our Menu</h2>
+                    <p class="card-body">Delicious smoked fish lumpia crafted with premium ingredients.</p>
+                    <button class="btn-secondary" onclick="navigateTo('menu')">Browse Menu</button>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="card-title">📍 Mission</h2>
+                    <p class="card-body">To craft and offer delicious, high-quality smoked fish lumpia products to every customer.</p>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="card-title">🎯 Goals</h2>
+                    <p class="card-body">Establish SMOKED FISH LUMPIA as a leading seafood innovation brand.</p>
+                </div>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+        <!-- MENU PAGE -->
+        <div id="page-menu" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title">MENU</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <button class="btn-back" onclick="navigateTo('home')">← Back</button>
+            
+            <div class="main-content">
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Menu items will be inserted here by JavaScript -->
+                </div>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+        <!-- PRODUCT DETAIL PAGE -->
+        <div id="page-product" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title" id="productHeaderTitle">PRODUCT</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <button class="btn-back" onclick="navigateTo('menu')">← Back to Menu</button>
+            
+            <div class="main-content">
+                <div class="product-image-container">
+                    <img class="product-image" id="productImage" src="" alt="Product">
+                </div>
+                
+                <h2 class="product-title" id="productTitle"></h2>
+                <p class="product-price" id="productPrice"></p>
+                <p class="product-description" id="productDescription"></p>
+                
+                <div style="text-align: center;">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                        <span class="quantity-value" id="quantityValue">1</span>
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" style="margin-top: 20px;" onclick="addToCart()">Add to Cart</button>
+                <button class="btn-secondary" onclick="navigateTo('menu')">Continue Shopping</button>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="page-about" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title">ABOUT US</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <button class="btn-back" onclick="navigateTo('home')">← Back</button>
+            
+            <div class="main-content">
+                <div class="content-card">
+                    <h2 class="card-title">Our Story</h2>
+                    <p class="card-body">Smoked Fish Lumpia is a Filipino delicacy that combines the rich flavors of smoked fish with perfectly seasoned wrappers. Each bite delivers an explosion of flavor and quality.</p>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="card-title">Quality Commitment</h2>
+                    <p class="card-body">We use only the finest smoked fish and premium ingredients to ensure every lumpia meets our high standards of excellence.</p>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="card-title">Fresh & Delicious</h2>
+                    <p class="card-body">Handcrafted with care, our lumpia are made fresh to order, ensuring you get the best quality and taste every time.</p>
+                </div>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="page-contact" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title">CONTACT US</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <button class="btn-back" onclick="navigateTo('home')">← Back</button>
+            
+            <div class="main-content">
+                <div class="content-card">
+                    <h2 class="card-title">Get in Touch</h2>
+                    <ul class="contact-info-list">
+                        <li class="contact-info-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Smoked Fish Lumpia HQ, Philippines</span>
+                        </li>
+                        <li class="contact-info-item">
+                            <span class="contact-icon">📱</span>
+                            <span><a class="contact-link" href="tel:09853307344">0985-330-7344</a></span>
+                        </li>
+                        <li class="contact-info-item">
+                            <span class="contact-icon">📧</span>
+                            <span><a class="contact-link" href="mailto:anzanojoanna90@gmail.com">anzanojoanna90@gmail.com</a></span>
+                        </li>
+                        <li class="contact-info-item">
+                            <span class="contact-icon">💳</span>
+                            <span>GCash: 09853307344</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="card-title">Payment Methods</h2>
+                    <ul class="contact-info-list">
+                        <li class="contact-info-item">
+                            <span class="contact-icon">💰</span>
+                            <span>Cash on Delivery (COD)</span>
+                        </li>
+                        <li class="contact-info-item">
+                            <span class="contact-icon">📱</span>
+                            <span>GCash Payment</span>
+                        </li>
+                        <li class="contact-info-item">
+                            <span class="contact-icon">💳</span>
+                            <span>Maya Payment</span>
+                        </li>
+                        <li class="contact-info-item">
+                            <span class="contact-icon">💳</span>
+                            <span>Debit/Credit Card</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="content-card">
+                    <h2 class="card-title">Shipping Info</h2>
+                    <p class="card-body">Free delivery on orders ₱500 and above. Orders are delivered within 24-48 hours. Packaging is eco-friendly and maintains freshness.</p>
+                </div>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+        <!-- REVIEWS PAGE -->
+        <div id="page-reviews" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title">REVIEWS</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <button class="btn-back" onclick="navigateTo('home')">← Back</button>
+            
+            <div class="main-content">
+                <div class="content-card">
+                    <h2 class="card-title">Leave a Review</h2>
+                    <div class="star-rating-container" id="starContainer">
+                        <span class="star-icon" onclick="selectStar(1)">★</span>
+                        <span class="star-icon" onclick="selectStar(2)">★</span>
+                        <span class="star-icon" onclick="selectStar(3)">★</span>
+                        <span class="star-icon" onclick="selectStar(4)">★</span>
+                        <span class="star-icon" onclick="selectStar(5)">★</span>
+                    </div>
+                    <textarea class="form-textarea" placeholder="Write your review..."></textarea>
+                    <button class="btn-primary">Submit Review</button>
+                </div>
+                
+                <h3 style="color: var(--primary-color); margin: 20px 0 16px 0;">Customer Reviews</h3>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">Maria Santos</div>
+                            <div class="review-date">2 days ago</div>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">Absolutely delicious! The smoked fish lumpia is crispy on the outside and flavorful on the inside. Highly recommended!</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">Juan Dela Cruz</div>
+                            <div class="review-date">1 week ago</div>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">Best lumpia I've ever tasted! Fresh, delicious, and great quality. Will definitely order again.</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">Ana Reyes</div>
+                            <div class="review-date">2 weeks ago</div>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">Perfect for parties! Everyone loved them. The delivery was fast and the packaging kept them fresh.</p>
+                </div>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+        <!-- DASHBOARD PAGE -->
+        <div id="page-dashboard" class="page-view">
+            <header class="app-header">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="header-title">DASHBOARD</div>
+                <div style="width: 30px;"></div>
+            </header>
+            
+            <button class="btn-back" onclick="navigateTo('home')">← Back</button>
+            
+            <div class="main-content">
+                <h3 style="color: var(--primary-color); margin-bottom: 16px;">Sales Overview</h3>
+                
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="metric-value primary">₱24,500</div>
+                        <div class="metric-label">Total Revenue</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value secondary">156</div>
+                        <div class="metric-label">Total Orders</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value success">892</div>
+                        <div class="metric-label">Items Sold</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value warning">4.8★</div>
+                        <div class="metric-label">Average Rating</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: var(--primary-color); margin: 24px 0 16px 0;">Recent Orders</h3>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">Order #1001</div>
+                            <div class="review-date">Today, 2:30 PM</div>
+                        </div>
+                        <span style="color: #2F855A; font-weight: 600;">✓ Delivered</span>
+                    </div>
+                    <p class="review-text">5x Regular Lumpia - ₱750</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">Order #1000</div>
+                            <div class="review-date">Yesterday, 5:45 PM</div>
+                        </div>
+                        <span style="color: #D69E2E; font-weight: 600;">⚬ In Transit</span>
+                    </div>
+                    <p class="review-text">10x Gift Box Lumpia - ₱1,500</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <div class="review-author">Order #999</div>
+                            <div class="review-date">2 days ago</div>
+                        </div>
+                        <span style="color: #2F855A; font-weight: 600;">✓ Delivered</span>
+                    </div>
+                    <p class="review-text">3x Family Bundle - ₱2,200</p>
+                </div>
+            </div>
+            
+            <footer class="app-footer">
+                © 2024 Smoked Fish Lumpia. All Rights Reserved.
+            </footer>
+        </div>
+
+    </div>
+
+    <script>
+        const menuProducts = [
+            {
+                id: 1,
+                name: "Regular Lumpia",
+                price: "₱150",
+                description: "Classic smoked fish lumpia with crispy wrapper",
+                image: "https://images.unsplash.com/photo-1585238341710-4b38-ac86-5e66-9d7a208dcd1b?auto=format&fit=crop&w=400&q=60"
+            },
+            {
+                id: 2,
+                name: "Spicy Edition",
+                price: "₱160",
+                description: "Smoked fish lumpia with spicy mayo filling",
+                image: "https://images.unsplash.com/photo-1615182736800-69f592e56433?auto=format&fit=crop&w=400&q=60"
+            },
+            {
+                id: 3,
+                name: "Premium Package",
+                price: "₱200",
+                description: "Extra large lumpia with premium smoked fish",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=60"
+            },
+            {
+                id: 4,
+                name: "Gift Box",
+                price: "₱450",
+                description: "6-piece beautifully packaged gift set",
+                image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=60"
+            },
+            {
+                id: 5,
+                name: "Family Bundle",
+                price: "₱1,200",
+                description: "20-piece assorted lumpia for families",
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561e1a?auto=format&fit=crop&w=400&q=60"
+            }
+        ];
+
+        let currentProduct = null;
+        let currentQuantity = 1;
+        let selectedStars = 0;
+
+        function navigateTo(page) {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+            document.getElementById(`page-${page}`).classList.add('active');
+            document.getElementById('navOverlay').classList.remove('open');
+        }
+
+        function toggleMenu() {
+            document.getElementById('navOverlay').classList.toggle('open');
+        }
+
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function loadMenuItems() {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = menuProducts.map(product => `
+                <div class="menu-item" onclick="viewProduct(${product.id})">
+                    <div class="product-image-container">
+                        <img class="product-image" src="${product.image}" alt="${product.name}">
+                    </div>
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-price">${product.price}</p>
+                    <p class="product-description">${product.description}</p>
+                </div>
+            `).join('');
+        }
+
+        function viewProduct(productId) {
+            currentProduct = menuProducts.find(p => p.id === productId);
+            currentQuantity = 1;
+            
+            if (currentProduct) {
+                document.getElementById('productImage').src = currentProduct.image;
+                document.getElementById('productTitle').textContent = currentProduct.name;
+                document.getElementById('productPrice').textContent = currentProduct.price;
+                document.getElementById('productDescription').textContent = currentProduct.description;
+                document.getElementById('productHeaderTitle').textContent = currentProduct.name.toUpperCase();
+                document.getElementById('quantityValue').textContent = '1';
+                
+                navigateTo('product');
+            }
+        }
+
+        function increaseQuantity() {
+            currentQuantity++;
+            document.getElementById('quantityValue').textContent = currentQuantity;
+        }
+
+        function decreaseQuantity() {
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                document.getElementById('quantityValue').textContent = currentQuantity;
+            }
+        }
+
+        function addToCart() {
+            alert(`Added ${currentQuantity}x ${currentProduct.name} to cart!`);
+            navigateTo('menu');
+        }
+
+        function selectStar(rating) {
+            selectedStars = rating;
+            const stars = document.querySelectorAll('.star-icon');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('selected');
+                } else {
+                    star.classList.remove('selected');
+                }
+            });
+        }
+
+        // Initialize
+        loadMenuItems();
+    </script>
+
+</body>
+</html>
