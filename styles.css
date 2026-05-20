@@ -332,6 +332,186 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Checkout Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-dark);
+    background: none;
+    border: none;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--accent-color);
+}
+
+.modal h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Order Summary */
+.order-summary {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.order-summary h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    border-top: 2px solid var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+/* Payment Info */
+.payment-info {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: none;
+    border-left: 4px solid var(--primary-color);
+}
+
+.payment-info.show {
+    display: block;
+}
+
+.payment-info h4 {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.payment-info p {
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
+
+/* Submit Button */
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #E74C3C 100%);
+    color: white;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
 /* Contact Section */
 .contact {
     padding: 80px 20px;
@@ -451,6 +631,17 @@ body {
     gap: 0.5rem;
 }
 
+.btn-checkout {
+    background-color: var(--accent-color);
+    color: white;
+    margin-top: 1rem;
+}
+
+.btn-checkout:hover {
+    background-color: #D65400;
+    transform: translateY(-2px);
+}
+
 /* Footer */
 .footer {
     background: var(--secondary-color);
@@ -521,5 +712,14 @@ body {
     .tab-btn {
         padding: 8px 16px;
         font-size: 0.85rem;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
     }
 }
