@@ -12,7 +12,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add to Cart functionality (placeholder)
+// Menu category filtering
+const tabButtons = document.querySelectorAll('.tab-btn');
+const menuCards = document.querySelectorAll('.menu-card');
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        
+        // Update active tab
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter menu items
+        menuCards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.classList.remove('hidden');
+                card.style.animation = 'fadeIn 0.3s ease-in';
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    });
+});
+
+// Add to Cart functionality
 document.querySelectorAll('.btn-secondary').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
